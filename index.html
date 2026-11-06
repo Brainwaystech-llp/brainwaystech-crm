@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BrainwaysTech CRM</title>
+<style>
+:root{--r:#F5002F;--y:#FFC321;--bg:#fff;--fg:#000;--mut:#6b6b6b;--ln:#e6e6e6;--card:#fafafa;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#000;--fg:#fff;--mut:#9a9a9a;--ln:#2a2a2a;--card:#111;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#000;--fg:#fff;--mut:#9a9a9a;--ln:#2a2a2a;--card:#111;color-scheme:dark}
+body{margin:0;font:14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--fg)}
+header{display:flex;align-items:center;gap:16px;padding:12px 20px;border-bottom:1px solid var(--ln);flex-wrap:wrap}
+.logo{font-weight:800;font-size:18px;letter-spacing:-.02em;display:flex;align-items:center;gap:8px}
+.logo s{display:inline-block;width:14px;height:14px;background:var(--r);border-radius:3px;box-shadow:7px 7px 0 -2px var(--y)}
+.logo i{color:var(--r);font-style:normal}
+nav{display:flex;gap:2px;flex:1;overflow-x:auto}
+nav button{background:none;border:0;padding:8px 12px;font:inherit;color:var(--mut);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap}
+nav button.on{color:var(--fg);border-color:var(--r);font-weight:600}
+main{padding:20px;max-width:1200px;margin:0 auto}
+button{font:inherit;cursor:pointer}
+.pri{background:var(--r);color:#fff;border:0;padding:8px 14px;border-radius:6px;font-weight:600}
+.ghost{background:none;color:var(--fg);border:1px solid var(--ln);padding:8px 14px;border-radius:6px}
+h2{font-size:16px;margin:0 0 12px}h3{margin:0 0 10px;font-size:14px}
+.grid{display:grid;gap:12px;margin-bottom:12px}.k{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}.two{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.card{border:1px solid var(--ln);border-radius:8px;padding:14px;background:var(--card)}
+.card.hl{border-top:3px solid var(--r)}.card.yl{border-top:3px solid var(--y)}
+.kv{font-size:24px;font-weight:700}.kl{color:var(--mut);font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+.bar{display:flex;align-items:center;gap:8px;margin:6px 0;font-size:13px}.bar>span:first-child{width:96px;flex:none;overflow:hidden;text-overflow:ellipsis}
+.bar div{flex:1;background:var(--ln);height:8px;border-radius:4px}.bar b{display:block;height:8px;background:var(--r);border-radius:4px}.bar.y b{background:var(--y)}
+.bar>span:last-child{width:64px;text-align:right;flex:none;color:var(--mut)}
+.wrap{overflow-x:auto}table{width:100%;border-collapse:collapse}
+th,td{text-align:left;padding:8px;border-bottom:1px solid var(--ln);white-space:nowrap}th{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.05em}
+tr[data-id]{cursor:pointer}tr[data-id]:hover td{background:var(--card)}
+.tag{padding:2px 8px;border-radius:10px;font-size:12px;border:1px solid var(--ln)}
+.tag.Won,.tag.Paid{background:var(--y);color:#000;border-color:var(--y)}.tag.Lost{color:var(--mut)}.tag.Proposal,.tag.Call{border-color:var(--r)}
+.od{color:var(--r);font-weight:600}
+.tb{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}.tb input{flex:1;min-width:160px}.tb select{width:auto}
+.board{display:grid;grid-auto-flow:column;grid-auto-columns:230px;gap:12px;overflow-x:auto;align-items:start;padding-bottom:8px}
+.col h3{display:flex;justify-content:space-between}.col .card{margin-bottom:8px;padding:10px;background:var(--bg)}
+.col select{margin-top:6px;padding:4px;font-size:12px}
+dialog{border:1px solid var(--ln);border-radius:10px;background:var(--bg);color:var(--fg);max-width:640px;width:calc(100% - 24px);padding:20px}
+dialog::backdrop{background:#0008}
+.g{display:grid;grid-template-columns:1fr 1fr;gap:10px}.g .f{grid-column:1/-1}
+label{display:block;font-size:12px;color:var(--mut);margin-bottom:2px}
+input,select,textarea{width:100%;box-sizing:border-box;padding:8px;border:1px solid var(--ln);border-radius:6px;background:var(--bg);color:var(--fg);font:inherit}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--y);border-color:var(--y)}
+.err{color:var(--r);min-height:1.4em;margin:8px 0 0}.acts{display:flex;gap:8px;margin-top:8px}.acts .sp{flex:1}
+.mut{color:var(--mut)}.row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;gap:8px}
+@media(max-width:560px){.g{grid-template-columns:1fr}}
+.chip{font-size:12px}.tag.admin{background:var(--r);color:#fff;border-color:var(--r)}.gate{max-width:440px;margin:40px auto;text-align:center}.gate .card{text-align:left}
+#ts{display:none;position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:#000;color:#fff;border:1px solid var(--y);padding:8px 14px;border-radius:6px;z-index:99}
+</style></head><body>
+<header><div class="logo"><s></s><span>Brainways<i>Tech</i></span></div>
+<nav id="nav"></nav><span id="me" class="chip mut"></span><span id="hb" style="display:flex;gap:8px"></span></header>
+<main id="m"></main><dialog id="dlg"></dialog>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script>
+"use strict";
+/* ===== PASTE YOUR SUPABASE VALUES HERE (Project Settings > API). Use the anon/publishable key only, never the secret key. ===== */
+const SUPABASE_URL="https://jzmoagzwindxivqqumng.supabase.co",SUPABASE_KEY="sb_publishable_sUBgot-TPmzANVHlj5bMIQ_QLHQUePF";
+/* ---------- Config: add fields/stages here and the UI follows ---------- */
+const KEY="bwt_crm_v1",VER=1;
+const STAGES=["Prospect","Connected","Qualified","Call","Proposal","Won","Lost"];
+const COUNTRIES=["USA","UK","UAE","Australia","India"];
+const LOSTR=["Budget","Timing","No response","Competitor"];
+const LEAD=[
+{k:"company",l:"Company",t:"text",req:1},{k:"country",l:"Country",t:"select",o:COUNTRIES},
+{k:"contact",l:"Contact name",t:"text"},{k:"role",l:"Contact role",t:"select",o:["Founder","CEO","Operations Head"]},
+{k:"linkedin",l:"LinkedIn URL",t:"url"},{k:"website",l:"Website",t:"url"},
+{k:"source",l:"Group / source",t:"text"},{k:"signal",l:"Lead signal",t:"select",o:["Hiring","Growth","Multiple lead sources"]},
+{k:"tools",l:"Current tools",t:"text",ph:"CRM, forms, spreadsheets"},{k:"score",l:"Qualification score (0–10)",t:"number"},
+{k:"value",l:"Estimated deal value (USD)",t:"number"},{k:"stage",l:"Stage",t:"select",o:STAGES,nb:1},
+{k:"pain",l:"Pain point (confirmed)",t:"area",f:1},{k:"next",l:"Next action",t:"text",f:1},
+{k:"date",l:"Follow-up date",t:"date"},{k:"lost",l:"Lost reason",t:"select",o:LOSTR}];
+const INV=[{k:"client",l:"Client",t:"text",req:1,list:1},{k:"desc",l:"Description",t:"text"},
+{k:"amount",l:"Amount (USD)",t:"number",req:1},{k:"status",l:"Status",t:"select",o:["Draft","Sent","Paid"],nb:1},
+{k:"issued",l:"Issued",t:"date"},{k:"due",l:"Due",t:"date"}];
+const EXP=[{k:"desc",l:"Description",t:"text",req:1},{k:"cat",l:"Category",t:"select",o:["Software","Salaries","Marketing","Office","Other"]},
+{k:"amount",l:"Amount (USD)",t:"number",req:1},{k:"date",l:"Date",t:"date"}];
+const act=l=>l.stage!=="Won"&&l.stage!=="Lost";
+const ENT={
+leads:{f:LEAD,def:()=>({stage:"Prospect"}),title:"Lead",
+ val:v=>{if(!v.company)return"Company is required.";if(v.score!==""&&(v.score<0||v.score>10))return"Score must be between 0 and 10.";
+  if(act(v)){if(!v.next)return"Every active lead needs a next action.";if(!v.date)return"Every active lead needs a follow-up date."}
+  if(v.stage==="Lost"&&!v.lost)return"Choose a lost reason."}},
+invoices:{f:INV,def:()=>({status:"Draft",issued:today()}),title:"Invoice",val:v=>{if(!v.client)return"Client is required.";if(!(v.amount>0))return"Amount must be above 0."}},
+expenses:{f:EXP,def:()=>({date:today()}),title:"Expense",val:v=>{if(!v.desc)return"Description is required.";if(!(v.amount>0))return"Amount must be above 0."}}};
+
+/* ---------- Storage ---------- */
+const ROLES={admin:{n:"Admin",w:["leads","invoices","expenses"],v:["dash","leads","pipe","fin","admin"]},sales:{n:"Sales",w:["leads"],v:["dash","leads","pipe"]},finance:{n:"Finance",w:["invoices","expenses"],v:["dash","leads","pipe","fin"]},viewer:{n:"Viewer",w:[],v:["dash","leads","pipe"]}};
+let db={leads:[],invoices:[],expenses:[],profiles:[]},sb=null,ME=null,ROLE=null,ST="",TM=null,POLL=null;
+const can=e=>!!ROLE&&ROLES[ROLE].w.includes(e);
+const fail=e=>toast((e&&e.message)||"Action not permitted.");
+/* App field names -> database column names (add new fields here and in the SQL) */
+const MAP={leads:{role:"contact_role",value:"deal_value",next:"next_action",date:"follow_up",lost:"lost_reason"},invoices:{desc:"description"},expenses:{desc:"description",cat:"category",date:"spent_on"}};
+const NUL=new Set(["score","deal_value","follow_up","issued","due","amount","spent_on"]);
+function toDb(e,it){const o={};ENT[e].f.forEach(f=>{const k=MAP[e][f.k]||f.k;let v=it[f.k];if(v===undefined||v==="")v=NUL.has(k)?null:"";o[k]=v});return o}
+function toApp(e,r){const o={id:r.id};ENT[e].f.forEach(f=>{const v=r[MAP[e][f.k]||f.k];o[f.k]=v==null?"":v});return o}
+const reload=()=>{clearTimeout(TM);TM=setTimeout(loadAll,250)};
+async function put(e,it){const row=toDb(e,it),q=it.id?sb.from(e).update(row).eq("id",it.id):sb.from(e).insert(row);
+ const {data,error}=await q.select("id");if(error)throw error;if(!data||!data.length)throw new Error("Not permitted for your role.");reload()}
+async function del(e,id){const {data,error}=await sb.from(e).delete().eq("id",id).select("id");if(error)throw error;if(!data||!data.length)throw new Error("Not permitted for your role.");reload()}
+async function loadAll(){if(!ROLE)return;const W=["leads"].concat(ROLE==="admin"||ROLE==="finance"?["invoices","expenses"]:[]);
+ const rs=await Promise.all(W.map(t=>sb.from(t).select("*").order("created_at",{ascending:false})));
+ rs.forEach((r,i)=>{if(r.error)fail(r.error);else db[W[i]]=r.data.map(x=>toApp(W[i],x))});
+ if(ROLE==="admin"){const r=await sb.from("profiles").select("*").order("created_at");if(!r.error)db.profiles=r.data}
+ refresh()}
+
+
+/* ---------- Helpers ---------- */
+const $=s=>document.querySelector(s);
+const tz=()=>new Date().getTimezoneOffset()*6e4;
+const today=()=>new Date(Date.now()-tz()).toISOString().slice(0,10);
+const inDays=n=>new Date(Date.now()-tz()+n*864e5).toISOString().slice(0,10);
+const money=n=>"$"+Math.round(n||0).toLocaleString("en-US");
+const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const sum=a=>a.reduce((s,x)=>s+(+x.value||+x.amount||0),0);
+const over=l=>act(l)&&l.date&&l.date<today();
+function bars(e,cls){const mx=Math.max(1,...e.map(x=>x[1]));return e.length?e.map(x=>`<div class="bar ${cls||""}"><span>${esc(x[0])}</span><div><b style="width:${x[1]/mx*100}%"></b></div><span>${x[2]!=null?x[2]:x[1]}</span></div>`).join(""):'<p class="mut">No data yet.</p>'}
+const count=(a,k)=>{const o={};a.forEach(l=>{const v=l[k]||"—";o[v]=(o[v]||0)+1});return Object.entries(o).sort((a,b)=>b[1]-a[1])};
+
+/* ---------- Views ---------- */
+let view="dash",q="",sf="",NAV=[["dash","Dashboard"],["leads","Leads"],["pipe","Pipeline"],["fin","Finance (ERP)"],["admin","Admin"]];
+const V={};
+V.dash=()=>{const L=db.leads,A=L.filter(act),W=L.filter(l=>l.stage==="Won"),X=L.filter(l=>l.stage==="Lost");
+ const od=A.filter(over),wk=A.filter(l=>l.date>=today()&&l.date<=inDays(7));
+ const wr=W.length+X.length?Math.round(W.length/(W.length+X.length)*100)+"%":"—";
+ const avg=A.length?(A.reduce((s,l)=>s+(+l.score||0),0)/A.length).toFixed(1):"—";
+ const k=(l,v,c)=>`<div class="card ${c||""}"><div class="kl">${l}</div><div class="kv">${v}</div></div>`;
+ const due=[...od,...wk].sort((a,b)=>a.date<b.date?-1:1).slice(0,8);
+ return `<div class="grid k">${k("Active leads",A.length)}${k("Pipeline value",money(sum(A)),"hl")}${k("Won value",money(sum(W)),"yl")}${k("Win rate",wr)}${k("Avg. score",avg)}${k("Overdue follow-ups",od.length,od.length?"hl":"")}</div>
+ <div class="grid two"><div class="card"><h3>Funnel by stage</h3>${bars(STAGES.map(s=>[s,L.filter(l=>l.stage===s).length]))}</div>
+ <div class="card"><h3>Follow-ups: overdue &amp; next 7 days</h3>${due.length?`<table>${due.map(l=>`<tr data-ent="leads" data-id="${l.id}"><td><b>${esc(l.company)}</b></td><td>${esc(l.next)}</td><td class="${over(l)?"od":""}">${l.date}</td></tr>`).join("")}</table>`:'<p class="mut">Nothing due. Nice and clear.</p>'}</div></div>
+ <div class="grid two"><div class="card"><h3>Active pipeline value by country</h3>${bars(COUNTRIES.map(c=>{const v=sum(A.filter(l=>l.country===c));return[c,v,money(v)]}),"y")}</div>
+ <div class="card"><h3>Leads by source</h3>${bars(count(L,"source").slice(0,6))}</div>
+ <div class="card"><h3>Lead signals</h3>${bars(count(A,"signal"),"y")}</div>
+ <div class="card"><h3>Lost reasons</h3>${bars(count(X,"lost"))}</div></div>`};
+const rows=()=>{const s=q.toLowerCase();return db.leads.filter(l=>(!sf||l.stage===sf)&&(!s||[l.company,l.contact,l.country,l.next].join(" ").toLowerCase().includes(s)))
+ .sort((a,b)=>(a.date||"9")<(b.date||"9")?-1:1).map(l=>`<tr data-ent="leads" data-id="${l.id}"><td><b>${esc(l.company)}</b></td><td>${esc(l.country)}</td><td>${esc(l.contact)} <span class="mut">${esc(l.role)}</span></td><td><span class="tag ${l.stage}">${l.stage}</span></td><td>${l.score===""||l.score==null?"":l.score+"/10"}</td><td>${l.value?money(l.value):""}</td><td>${esc(l.next)||(act(l)?'<span class="od">missing</span>':"")}</td><td class="${over(l)?"od":""}">${l.date||""}</td></tr>`).join("")||'<tr><td colspan="8" class="mut">No leads yet. Click “+ Lead” to add your first prospect.</td></tr>'};
+V.leads=()=>`<div class="tb"><input id="q" placeholder="Search company, contact, country, action…" value="${esc(q)}"><select id="sf"><option value="">All stages</option>${STAGES.map(s=>`<option ${s===sf?"selected":""}>${s}</option>`).join("")}</select></div>
+ <div class="card wrap"><table><thead><tr><th>Company</th><th>Country</th><th>Contact</th><th>Stage</th><th>Score</th><th>Value</th><th>Next action</th><th>Date</th></tr></thead><tbody id="tb">${rows()}</tbody></table></div>`;
+V.pipe=()=>`<div class="board">${STAGES.map(s=>{const a=db.leads.filter(l=>l.stage===s);return `<div class="col"><h3><span>${s}</span><span class="mut">${a.length} · ${money(sum(a))}</span></h3>${a.map(l=>`<div class="card"><b data-ent="leads" data-id="${l.id}" style="cursor:pointer">${esc(l.company)}</b><div class="mut">${esc(l.country)} · ${l.value?money(l.value):"no value"}</div><div class="${over(l)?"od":"mut"}">${esc(l.next)} ${l.date||""}</div><select data-move="${l.id}" ${can("leads")?"":"disabled"}>${STAGES.map(t=>`<option ${t===s?"selected":""}>${t}</option>`).join("")}</select></div>`).join("")}</div>`}).join("")}</div>`;
+V.admin=()=>{const opt=x=>Object.keys(ROLES).map(r=>`<option value="${r}" ${r===x?"selected":""}>${ROLES[r].n}</option>`).join("");
+ return `<div class="card yl" style="margin-bottom:12px"><h3>Add a new person</h3><p class="mut" style="margin:0">In Supabase open <b>Authentication → Users → Add user → Create new user</b> (tick Auto Confirm User). They appear below as Viewer, and you set their role here. To delete an account, delete the user in Supabase.</p></div>
+ <div class="card wrap"><h3>Team (${db.profiles.length})</h3><table><tr><th>Person</th><th>Role</th><th>Status</th></tr>${db.profiles.map(p=>`<tr><td><b>${esc(p.full_name)}</b>${p.id===ME.id?' <span class="mut">(you)</span>':""}</td><td><select data-mrole="${esc(p.id)}">${opt(p.role)}</select></td><td><select data-mrole="${esc(p.id)}" data-f="active"><option value="1" ${p.active?"selected":""}>Active</option><option value="0" ${p.active?"":"selected"}>Suspended</option></select></td></tr>`).join("")||'<tr><td class="mut">No people yet.</td></tr>'}</table></div>`};
+V.fin=()=>{const I=db.invoices,E=db.expenses,paid=sum(I.filter(i=>i.status==="Paid")),out=sum(I.filter(i=>i.status==="Sent")),ex=sum(E);
+ const k=(l,v,c)=>`<div class="card ${c||""}"><div class="kl">${l}</div><div class="kv">${v}</div></div>`;
+ const t=(ent,a,h,r)=>`<div class="card wrap"><div class="row"><h3 style="margin:0">${h}</h3>${can(ent)?`<button class="ghost" data-new="${ent}">+ Add</button>`:""}</div><table>${a.length?a.slice().sort((x,y)=>(y.issued||y.date||"")<(x.issued||x.date||"")?-1:1).map(r).join(""):'<tr><td class="mut">Nothing recorded yet.</td></tr>'}</table></div>`;
+ return `<div class="grid k">${k("Revenue (paid)",money(paid),"yl")}${k("Outstanding",money(out),out?"hl":"")}${k("Expenses",money(ex))}${k("Net",money(paid-ex))}</div>
+ <div class="grid two">${t("invoices",I,"Invoices",i=>`<tr data-ent="invoices" data-id="${i.id}"><td><b>${esc(i.client)}</b><div class="mut">${esc(i.desc)}</div></td><td>${money(i.amount)}</td><td class="${i.status==="Sent"&&i.due&&i.due<today()?"od":""}">${i.due||""}</td><td><span class="tag ${i.status}">${i.status}</span></td></tr>`)}
+ ${t("expenses",E,"Expenses",e=>`<tr data-ent="expenses" data-id="${e.id}"><td><b>${esc(e.desc)}</b><div class="mut">${esc(e.cat)}</div></td><td>${money(e.amount)}</td><td>${e.date||""}</td></tr>`)}</div>`};
+function render(){if(!ROLE||ST==="pw")return;const R=ROLES[ROLE];if(!R.v.includes(view))view="dash";
+ $("#nav").innerHTML=NAV.filter(n=>R.v.includes(n[0])).map(n=>`<button data-v="${n[0]}" class="${n[0]===view?"on":""}">${n[1]}</button>`).join("");
+ $("#me").innerHTML=`${esc(ME.name||"")} <span class="tag ${ROLE}">${R.n}</span>`;
+ $("#hb").innerHTML=(can("leads")?'<button class="pri" data-new="leads">+ Lead</button>':"")+(ROLE==="admin"?'<button class="ghost" data-bk>Backup</button>':"")+'<button class="ghost" data-cp>Password</button><button class="ghost" data-lo>Sign out</button>';
+ $("#m").innerHTML=V[view]()}
+function refresh(){const a=document.activeElement;if(a&&a.id==="q"&&$("#tb")){$("#tb").innerHTML=rows();return}if(a&&/^(INPUT|TEXTAREA)$/.test(a.tagName)&&$("#m").contains(a))return;render()}
+
+/* ---------- Generic form (leads, invoices, expenses) ---------- */
+function edit(ent,id,patch){const E=ENT[ent],cur=id?db[ent].find(x=>x.id===id):null;if(id&&!cur)return;if(!id&&!can(ent))return toast("Your role is read-only here.");
+ const o=Object.assign({},cur||E.def(),patch||{}),d=$("#dlg");
+ const inp=f=>{const v=o[f.k]==null?"":o[f.k],i="f_"+f.k;
+  if(f.t==="select")return `<select id="${i}">${f.nb?"":'<option value="">—</option>'}${f.o.map(x=>`<option ${x===v?"selected":""}>${x}</option>`).join("")}</select>`;
+  if(f.t==="area")return `<textarea id="${i}" rows="2">${esc(v)}</textarea>`;
+  return `<input id="${i}" type="${f.t}" value="${esc(v)}" ${f.t==="number"?'min="0" step="any"':""} ${f.ph?`placeholder="${f.ph}"`:""} ${f.list?'list="dl"':""}>`};
+ d.innerHTML=`<h2>${id?"Edit":"New"} ${E.title}</h2><div class="g">${E.f.map(f=>`<div class="${f.f?"f":""}"><label for="f_${f.k}">${f.l}${f.req?" *":""}</label>${inp(f)}</div>`).join("")}</div>
+ <datalist id="dl">${db.leads.map(l=>`<option value="${esc(l.company)}">`).join("")}</datalist><p class="err" id="err"></p>
+ <div class="acts"><button class="pri" id="sv">Save</button><button class="ghost" id="cx">Cancel</button><span class="sp"></span>${id?'<button class="ghost" id="dl_">Delete</button>':""}</div>`;
+ const err=m=>{$("#err").textContent=m};
+ $("#cx").onclick=()=>d.close();
+ $("#sv").onclick=()=>{const v={};E.f.forEach(f=>{let x=$("#f_"+f.k).value.trim();if(f.t==="number")x=x===""?"":+x;v[f.k]=x});
+  if(v.stage&&v.stage!=="Lost")v.lost="";
+  const m=E.val(v);if(m)return err(m);
+  const it=Object.assign({},cur||{},v);
+  put(ent,it).then(()=>d.close()).catch(e=>err("Could not save: "+((e&&e.message)||"not permitted")))};
+ if(id){let armed=0;$("#dl_").onclick=e=>{if(!armed){armed=1;e.target.textContent="Click again to confirm";return}
+  del(ent,id).then(()=>d.close()).catch(fail)}}
+ if(!can(ent)){d.querySelectorAll("input,select,textarea").forEach(x=>x.disabled=true);$("#sv").remove();if(id)$("#dl_").remove()}d.showModal();return err}
+function toast(m){let t=$("#ts");if(!t){t=document.createElement("div");t.id="ts";document.body.appendChild(t)}t.textContent=m;t.style.display="block";clearTimeout(toast.h);toast.h=setTimeout(()=>t.style.display="none",3500)}
+
+/* ---------- Backup / restore (copy–paste JSON) ---------- */
+function backup(){const d=$("#dlg");d.innerHTML=`<h2>Backup &amp; restore</h2><p class="mut">Copy this text and keep it safe. To restore, paste a backup here and click Restore (adds or overwrites records by id).</p>
+ <textarea id="bk" rows="10">${esc(JSON.stringify({leads:db.leads,invoices:db.invoices,expenses:db.expenses}))}</textarea><p class="err" id="err"></p><div class="acts"><button class="pri" id="cp">Copy</button><button class="ghost" id="rs">Restore</button><button class="ghost" id="cx">Close</button></div>`;
+ $("#cx").onclick=()=>d.close();
+ $("#cp").onclick=()=>{$("#bk").select();try{document.execCommand("copy");$("#err").textContent="Copied."}catch(e){$("#err").textContent="Select the text and copy manually."}};
+ $("#rs").onclick=()=>{try{const n=JSON.parse($("#bk").value);if(!n||!Array.isArray(n.leads))throw 0;
+  Promise.all(["leads","invoices","expenses"].flatMap(k=>(n[k]||[]).map(x=>put(k,Object.assign({},x,{id:null}))))).then(()=>{d.close();toast("Restored.")}).catch(fail)}catch(e){$("#err").textContent="That doesn’t look like a valid backup."}};
+ d.showModal()}
+
+/* ---------- Events ---------- */
+document.addEventListener("click",e=>{const t=e.target;let n;
+ if(n=t.closest("[data-v]")){view=n.dataset.v;render()}
+ else if(n=t.closest("[data-new]"))edit(n.dataset.new);
+ else if(t.closest("[data-bk]"))backup();
+ else if(n=t.closest("[data-lo],[data-cp]"))adm(n);
+ else if(n=t.closest("[data-ent]"))edit(n.dataset.ent,n.dataset.id)});
+document.addEventListener("input",e=>{if(e.target.id==="q"){q=e.target.value;$("#tb").innerHTML=rows()}});
+document.addEventListener("change",e=>{const t=e.target;
+ if(t.id==="sf"){sf=t.value;$("#tb").innerHTML=rows()}
+ else if(t.dataset.mrole){const id=t.dataset.mrole,body=t.dataset.f==="active"?{active:t.value==="1"}:{role:t.value};if(id===ME.id){toast("You can’t change your own role or status.");render();return}sb.from("profiles").update(body).eq("id",id).then(r=>{if(r.error)fail(r.error);loadAll()})}
+ else if(t.dataset.move){const l=db.leads.find(x=>x.id===t.dataset.move),m=ENT.leads.val(Object.assign({},l,{stage:t.value,lost:t.value==="Lost"?l.lost:""}));
+  if(m){const er=edit("leads",l.id,{stage:t.value});er(m)}else{put("leads",Object.assign({},l,{stage:t.value,lost:t.value==="Lost"?l.lost:""})).catch(fail)}}});
+const LOGO='<div class="logo" style="justify-content:center;margin-bottom:16px"><s></s><span>Brainways<i>Tech</i></span></div>';
+function gate(h){$("#nav").innerHTML="";$("#me").textContent="";$("#hb").innerHTML="";$("#m").innerHTML=`<div class="gate">${LOGO}${h}</div>`}
+function loginScreen(){ST="login";gate(`<h2>Sign in</h2><div class="card"><label for="lu">Email</label><input id="lu" type="email" autocomplete="username"><label for="lp" style="margin-top:8px">Password</label><input id="lp" type="password" autocomplete="current-password"><p class="err" id="err"></p><button class="pri" id="li" style="width:100%">Sign in</button><p class="mut" style="margin:10px 0 0;font-size:12px">Accounts are created by your BrainwaysTech admin. <a href="#" id="fp">Forgot password?</a></p></div>`);
+ const go=async()=>{const em=$("#lu").value.trim(),pw=$("#lp").value,e=$("#err");e.textContent="";if(!em||!pw){e.textContent="Enter your email and password.";return}
+  $("#li").disabled=true;const {data,error}=await sb.auth.signInWithPassword({email:em,password:pw});
+  if(error){e.textContent=/confirm/i.test(error.message)?"Email not confirmed. Ask your admin.":"Incorrect email or password.";$("#li").disabled=false;return}
+  enter(data.session)};
+ $("#li").onclick=go;[$("#lu"),$("#lp")].forEach(i=>i.onkeydown=e=>{if(e.key==="Enter")go()});
+ $("#fp").onclick=async ev=>{ev.preventDefault();const em=$("#lu").value.trim(),e=$("#err");if(!em){e.textContent="Type your email above first.";return}
+  await sb.auth.resetPasswordForEmail(em,{redirectTo:location.origin+location.pathname});e.textContent="If that email has an account, a reset link is on its way."}}
+function pwScreen(forced){ST="pw";gate(`<h2>${forced?"Set a new password":"Change password"}</h2><div class="card"><label for="n1">New password (min 8 characters)</label><input id="n1" type="password" autocomplete="new-password"><label for="n2" style="margin-top:8px">Repeat password</label><input id="n2" type="password" autocomplete="new-password"><p class="err" id="err"></p><button class="pri" id="sp">Save password</button>${forced?"":' <button class="ghost" id="cn">Cancel</button>'}</div>`);
+ $("#sp").onclick=async()=>{const a=$("#n1").value,e=$("#err");if(a.length<8)return e.textContent="Use at least 8 characters.";if(a!==$("#n2").value)return e.textContent="Passwords do not match.";
+  const {error}=await sb.auth.updateUser({password:a});if(error)return e.textContent="Could not save: "+error.message;
+  toast("Password updated.");const {data}=await sb.auth.getSession();ST="ok";data.session?enter(data.session):loginScreen()};
+ if(!forced)$("#cn").onclick=()=>{ST="ok";refresh()}}
+async function enter(session){const {data:p,error}=await sb.from("profiles").select("*").eq("id",session.user.id).maybeSingle();
+ if(error||!p||!p.active||!ROLES[p.role]){await sb.auth.signOut();loginScreen();$("#err").textContent=!p||error?"No access: this account has no profile yet. Contact your admin.":"This account is inactive. Contact your admin.";return}
+ ME={id:p.id,name:p.full_name||session.user.email};ROLE=p.role;ST="ok";await loadAll();clearInterval(POLL);POLL=setInterval(loadAll,30000)}
+async function signOut(){clearInterval(POLL);await sb.auth.signOut();ROLE=null;ME=null;db.leads=[];db.invoices=[];db.expenses=[];db.profiles=[];loginScreen()}
+function adm(n){if("lo" in n.dataset)signOut();else pwScreen(false)}
+async function boot(){gate('<p class="mut">Loading…</p>');
+ if(!window.supabase||SUPABASE_URL.indexOf("PASTE")===0)return gate('<h2>Not configured</h2><p class="mut">Open index.html and paste your Supabase Project URL and anon key at the top of the script.</p>');
+ sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+ sb.auth.onAuthStateChange(ev=>{if(ev==="PASSWORD_RECOVERY")pwScreen(true)});
+ const {data}=await sb.auth.getSession();if(ST==="pw")return;
+ data.session?enter(data.session):loginScreen()}
+boot();
+</script></body></html>
