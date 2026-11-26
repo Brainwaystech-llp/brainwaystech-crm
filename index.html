@@ -290,7 +290,7 @@ function printInv(id){const i=db.invoices.find(x=>x.id===id);if(!i)return;
  ov.innerHTML=`<div class="tbr"><button class="ghost" id="ic">Close</button><span class="sp"></span><span class="w">${warn}Tip: Print, choose “Save as PDF”, paper A4, turn on Background graphics.</span><button class="ghost" id="im">Email client</button><button class="pri" id="ip">Print / Save as PDF</button></div>
  <div id="invpg">${top}<img class="lg" src="logo.png" alt="" onerror="this.style.display='none'">
  <div class="co"><h2>${esc(C.name)}</h2><div class="tg">${esc(C.tag)}</div>${C.addr.map(esc).join("<br>")}<br>Email: ${esc(C.email)}${C.phone?"<br>Phone: "+esc(C.phone):""}${C.web?"<br>"+esc(C.web):""}${C.gstin?`<br><b>GSTIN : ${esc(C.gstin)}</b>`:""}</div>
- <div class="tr"><div><h1 class="it">INVOICE</h1><div class="sl"><i></i><i></i></div></div>
+ <div class="tr"><div><h4 class="it">INVOICE</h4><div class="sl"><i></i><i></i></div></div>
  <div class="mt"><div><span>Invoice no.</span><b>${esc(i.no||"—")}</b></div><div><span>Issue date</span><b>${dt(i.issued)}</b></div><div><span>Due date</span><b>${dt(i.due)}</b></div></div></div>
  <div class="g2"><div><div class="il">Client Name</div><div class="bg">${esc(i.client)}</div>${i.email?`<div>${esc(i.email)}</div>`:""}</div><div><div class="il">Project Name</div><div class="bg">${esc(i.project||"—")}</div></div></div>
  <table><tr><th>Description</th><th style="width:22mm;text-align:right">Units</th><th style="width:42mm;text-align:right">Total amount</th></tr>
