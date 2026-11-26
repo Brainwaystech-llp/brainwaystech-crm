@@ -2,6 +2,7 @@
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>BrainwaysTech CRM</title>
+<link rel="icon" href="logo.png">
 <style>
 :root{--r:#F5002F;--y:#FFC321;--bg:#fff;--fg:#000;--mut:#6b6b6b;--ln:#e6e6e6;--card:#fafafa;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
@@ -47,11 +48,31 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--y);border-color:
 .mut{color:var(--mut)}.row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;gap:8px}
 @media(max-width:560px){.g{grid-template-columns:1fr}}
 .chip{font-size:12px}.tag.admin{background:var(--r);color:#fff;border-color:var(--r)}.gate{max-width:440px;margin:40px auto;text-align:center}.gate .card{text-align:left}
-.tag.Active{background:var(--y);color:#000;border-color:var(--y)}.pc:hover{border-color:var(--r)}
+.tag.Active{background:var(--y);color:#000;border-color:var(--y)}.pc:hover{border-color:var(--r)}.tag.Partial{border-color:var(--y)}
+#invov{position:fixed;inset:0;z-index:50;background:#2b2b2b;overflow:auto;padding:12px;padding-top:calc(12px + env(safe-area-inset-top,0px))}
+#invov .tbr{display:flex;gap:8px;align-items:center;max-width:210mm;margin:0 auto 12px;flex-wrap:wrap}#invov .tbr .sp{flex:1}#invov .w{color:#FFC321;font-size:12px}#invov .ghost{color:#fff;border-color:#777}
+#invpg{width:210mm;min-height:297mm;margin:0 auto;background:#fff;color:#000;box-sizing:border-box;padding:0 14mm 14mm;display:flex;flex-direction:column;font-size:10.5pt;line-height:1.45;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+#invpg .ib{height:7mm;background:#F5002F;margin:0 -14mm 9mm;border-bottom:1.6mm solid #FFC321;box-sizing:content-box}
+#invpg .ih{display:flex;justify-content:space-between;align-items:flex-start;gap:10mm}
+#invpg .wm{font-weight:800;font-size:17pt;letter-spacing:-.02em;margin-top:2mm}#invpg .wm i{color:#F5002F;font-style:normal}
+#invpg .it{font-size:30pt;font-weight:800;letter-spacing:.05em;margin:0;color:#F5002F;line-height:1}
+#invpg .g2{display:grid;grid-template-columns:1fr 1fr;gap:8mm;margin:9mm 0 4mm}
+#invpg .il{font-size:8pt;text-transform:uppercase;letter-spacing:.12em;color:#F5002F;font-weight:700;margin-bottom:1.5mm}
+#invpg table{width:100%;border-collapse:collapse;margin-top:4mm}
+#invpg th{background:#000;color:#FFC321;text-align:left;padding:3mm;font-size:9pt;text-transform:uppercase;letter-spacing:.06em;border:0}
+#invpg td{padding:3.5mm 3mm;border-bottom:.3mm solid #ddd;vertical-align:top;white-space:normal}
+#invpg .tt{margin:8mm 0 0 auto;width:80mm;page-break-inside:avoid}
+#invpg .tt div{display:flex;justify-content:space-between;padding:2mm 0;border-bottom:.3mm solid #ddd}
+#invpg .tt .bd{background:#FFC321;font-weight:800;font-size:13pt;padding:3mm;border:0;margin-top:2mm}
+#invpg .st{display:inline-block;border:.6mm solid #F5002F;color:#F5002F;font-weight:800;padding:1.5mm 4mm;letter-spacing:.1em;font-size:10pt;margin-top:6mm}
+#invpg .ft{margin-top:auto;padding-top:10mm;font-size:9.5pt}
+#invpg .fb{height:4mm;background:#000;margin:6mm -14mm -14mm;border-top:1.6mm solid #F5002F}
+@media(max-width:820px){#invpg{zoom:.45}#invov .tbr{max-width:100%}}
+@media print{@page{size:A4;margin:0}html,body{background:#fff!important}body>*:not(#invov){display:none!important}#invov{position:static;background:#fff;padding:0;overflow:visible}#invov .tbr{display:none}#invpg{margin:0;zoom:1}}
 .sub{display:flex;gap:2px;margin:12px 0 16px;border-bottom:1px solid var(--ln);overflow-x:auto}.sub button{background:none;border:0;padding:8px 12px;color:var(--mut);border-bottom:2px solid transparent;white-space:nowrap}.sub button.on{color:var(--fg);border-color:var(--r);font-weight:600}
 #ts{display:none;position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:#000;color:#fff;border:1px solid var(--y);padding:8px 14px;border-radius:6px;z-index:99}
 </style></head><body>
-<header><div class="logo"><s></s><span>Brainways<i>Tech</i></span></div>
+<header><div class="logo"><img src="logo.png" alt="" style="height:30px;width:auto;border-radius:6px" onerror="this.outerHTML='<s></s>'"><span>Brainways<i>Tech</i></span></div>
 <nav id="nav"></nav><span id="me" class="chip mut"></span><span id="hb" style="display:flex;gap:8px"></span></header>
 <main id="m"></main><dialog id="dlg"></dialog>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
@@ -65,6 +86,9 @@ const STAGES=["Prospect","Connected","Qualified","Call","Proposal","Won","Lost"]
 const COUNTRIES=["USA","UK","UAE","Australia","India"];
 /* Currencies: [symbol, units per 1 USD]. Approximate rates, used only to total values in USD. Update the numbers when you want. */
 const CUR={USD:["$",1],GBP:["£",0.745],EUR:["€",0.86],AED:["AED ",3.6725],AUD:["A$",1.42],INR:["₹",94]};
+/* ===== EDIT YOUR COMPANY DETAILS (printed on every invoice) ===== */
+const COMPANY={name:"Brainwaystech LLp",addr:["216-B, salem main Road, Newpet","Krishnagiri, Tamilnadu, 635001","India"],email:"info@brainwaystechllp.com",phone:"+91 76679 24881",web:"www.brainwaystechllp.com",tax:"",instagram:"@brainwaystech.ai",
+ bank:[] /* e.g. ["Bank: ...","Account name: BRAINWAYSTECH","Account no.: ...","IFSC/SWIFT: ..."] */};
 const LOSTR=["Budget","Timing","No response","Competitor"];
 const LEAD=[
 {k:"company",l:"Company",t:"text",req:1},{k:"country",l:"Country",t:"select",o:COUNTRIES},
@@ -75,9 +99,10 @@ const LEAD=[
 {k:"currency",l:"Currency",t:"select",o:Object.keys(CUR),nb:1},{k:"value",l:"Estimated deal value",t:"number"},{k:"stage",l:"Stage",t:"select",o:STAGES,nb:1},
 {k:"pain",l:"Pain point (confirmed)",t:"area",f:1},{k:"next",l:"Next action",t:"text",f:1},
 {k:"date",l:"Follow-up date",t:"date"},{k:"lost",l:"Lost reason",t:"select",o:LOSTR}];
-const INV=[{k:"client",l:"Client",t:"text",req:1,list:1},{k:"desc",l:"Description",t:"text"},
-{k:"amount",l:"Amount (USD)",t:"number",req:1},{k:"status",l:"Status",t:"select",o:["Draft","Sent","Paid"],nb:1},
-{k:"issued",l:"Issued",t:"date"},{k:"due",l:"Due",t:"date"}];
+const INV=[{k:"no",l:"Invoice no.",t:"text"},{k:"project",l:"Project name",t:"text",list:"p"},{k:"client",l:"Client name",t:"text",req:1,list:1},{k:"email",l:"Client email",t:"email"},
+{k:"desc",l:"Description",t:"area",f:1},{k:"units",l:"Units",t:"number"},{k:"currency",l:"Currency",t:"select",o:Object.keys(CUR),nb:1},
+{k:"amount",l:"Total amount",t:"number",req:1},{k:"paid",l:"Paid amount",t:"number"},{k:"status",l:"Status (auto-set from amounts)",t:"select",o:["Draft","Sent","Partial","Paid"],nb:1},
+{k:"issued",l:"Issue date",t:"date"},{k:"due",l:"Due date",t:"date"},{k:"notes",l:"Notes / payment terms",t:"area",f:1}];
 const EXP=[{k:"desc",l:"Description",t:"text",req:1},{k:"cat",l:"Category",t:"select",o:["Software","Salaries","Marketing","Office","Other"]},
 {k:"amount",l:"Amount (USD)",t:"number",req:1},{k:"date",l:"Date",t:"date"}];
 const PROJ=[{k:"name",l:"Project name",t:"text",req:1,f:1},{k:"client",l:"Client / company",t:"text"},{k:"status",l:"Status",t:"select",o:["Planning","Active","On hold","Completed"],nb:1},
@@ -89,7 +114,7 @@ leads:{f:LEAD,def:()=>({stage:"Prospect",currency:"USD"}),title:"Lead",
   if(act(v)){if(!v.next)return"Every active lead needs a next action.";if(!v.date)return"Every active lead needs a follow-up date."}
   if(v.stage==="Lost"&&!v.lost)return"Choose a lost reason."}},
 projects:{f:PROJ,def:()=>({status:"Active",currency:"USD"}),title:"Project",val:v=>{if(!v.name)return"Project name is required.";if(v.start&&v.end&&v.end<v.start)return"End date can’t be before the start date."}},
-invoices:{f:INV,def:()=>({status:"Draft",issued:today()}),title:"Invoice",val:v=>{if(!v.client)return"Client is required.";if(!(v.amount>0))return"Amount must be above 0."}},
+invoices:{f:INV,def:()=>({status:"Draft",currency:"USD",issued:today(),paid:0,no:"BWT-"+new Date().getFullYear()+"-"+String(db.invoices.length+1).padStart(3,"0")}),title:"Invoice",val:v=>{if(!v.client)return"Client name is required.";if(!(v.amount>0))return"Total amount must be above 0.";if(+v.paid<0||+v.paid>+v.amount)return"Paid amount must be between 0 and the total."}},
 expenses:{f:EXP,def:()=>({date:today()}),title:"Expense",val:v=>{if(!v.desc)return"Description is required.";if(!(v.amount>0))return"Amount must be above 0."}}};
 
 /* ---------- Storage ---------- */
@@ -99,9 +124,9 @@ const can=e=>!!ROLE&&ROLES[ROLE].w.includes(e);
 const PL=()=>db.leads.filter(l=>l.project_id===PID),pn=id=>(db.projects.find(p=>p.id===id)||{}).name||"—";
 const fail=e=>toast((e&&e.message)||"Action not permitted.");
 /* App field names -> database column names (add new fields here and in the SQL) */
-const MAP={leads:{role:"contact_role",value:"deal_value",next:"next_action",date:"follow_up",lost:"lost_reason"},invoices:{desc:"description"},expenses:{desc:"description",cat:"category",date:"spent_on"},projects:{start:"start_date",end:"end_date",desc:"description"}};
-const NUL=new Set(["score","deal_value","follow_up","issued","due","amount","spent_on","start_date","end_date","budget"]);
-function toDb(e,it){const o={};ENT[e].f.forEach(f=>{const k=MAP[e][f.k]||f.k;let v=it[f.k];if(v===undefined||v==="")v=NUL.has(k)?null:"";o[k]=v});if(e==="leads")o.project_id=it.project_id;if((e==="leads"||e==="projects")&&!o.currency)o.currency="USD";return o}
+const MAP={leads:{role:"contact_role",value:"deal_value",next:"next_action",date:"follow_up",lost:"lost_reason"},invoices:{desc:"description",project:"project_name",no:"invoice_no",email:"client_email"},expenses:{desc:"description",cat:"category",date:"spent_on"},projects:{start:"start_date",end:"end_date",desc:"description"}};
+const NUL=new Set(["score","deal_value","follow_up","issued","due","amount","spent_on","start_date","end_date","budget","units"]);
+function toDb(e,it){const o={};ENT[e].f.forEach(f=>{const k=MAP[e][f.k]||f.k;let v=it[f.k];if(v===undefined||v==="")v=NUL.has(k)?null:(k==="paid"?0:"");o[k]=v});if(e==="leads")o.project_id=it.project_id;if(e!=="expenses"&&!o.currency)o.currency="USD";return o}
 function toApp(e,r){const o={id:r.id,project_id:r.project_id};ENT[e].f.forEach(f=>{const v=r[MAP[e][f.k]||f.k];o[f.k]=v==null?"":v});return o}
 const reload=()=>{clearTimeout(TM);TM=setTimeout(loadAll,250)};
 async function put(e,it){const row=toDb(e,it),q=it.id?sb.from(e).update(row).eq("id",it.id):sb.from(e).insert(row);
@@ -120,9 +145,10 @@ const tz=()=>new Date().getTimezoneOffset()*6e4;
 const today=()=>new Date(Date.now()-tz()).toISOString().slice(0,10);
 const inDays=n=>new Date(Date.now()-tz()+n*864e5).toISOString().slice(0,10);
 const money=n=>"$"+Math.round(n||0).toLocaleString("en-US"),fmt=(n,c)=>(CUR[c]||CUR.USD)[0]+Math.round(+n||0).toLocaleString("en-US"),rate=c=>(CUR[c]||CUR.USD)[1];
+const fm2=(n,c)=>(CUR[c]||CUR.USD)[0]+(+n||0).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2}),dt=x=>x?new Date(x+"T00:00:00").toLocaleDateString("en-GB",{day:"2-digit",month:"short",year:"numeric"}):"—";
 const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
-const sum=a=>a.reduce((s,x)=>s+("currency" in x?(+x.value||0)/rate(x.currency):(+x.value||+x.amount||0)),0);
+const sum=a=>a.reduce((s,x)=>s+(+x.value||+x.amount||0)/("currency" in x?rate(x.currency):1),0);
 const over=l=>act(l)&&l.date&&l.date<today();
 function bars(e,cls){const mx=Math.max(1,...e.map(x=>x[1]));return e.length?e.map(x=>`<div class="bar ${cls||""}"><span>${esc(x[0])}</span><div><b style="width:${x[1]/mx*100}%"></b></div><span>${x[2]!=null?x[2]:x[1]}</span></div>`).join(""):'<p class="mut">No data yet.</p>'}
 const count=(a,k)=>{const o={};a.forEach(l=>{const v=l[k]||"—";o[v]=(o[v]||0)+1});return Object.entries(o).sort((a,b)=>b[1]-a[1])};
@@ -164,11 +190,11 @@ V.project=()=>{const p=db.projects.find(x=>x.id===PID);if(!p)return '<button cla
  <div class="grid two"><div class="card"><h3>Project details</h3><table>${r("Client",esc(p.client))}${r("Status",esc(p.status))}${r("Start",p.start)}${r("End",p.end)}${r("Budget",p.budget!==""?fmt(p.budget,p.currency):"")}${r("Description",esc(p.desc))}</table></div>
  <div class="card"><h3>Lead funnel</h3>${bars(STAGES.map(s=>[s,L.filter(l=>l.stage===s).length]))}</div>
  <div class="card"><h3>Follow-ups: overdue &amp; next 7 days</h3>${due.length?`<table>${due.map(l=>`<tr data-ent="leads" data-id="${l.id}"><td><b>${esc(l.company)}</b></td><td>${esc(l.next)}</td><td class="${over(l)?"od":""}">${l.date}</td></tr>`).join("")}</table>`:`<p class="mut">Nothing due.${can("leads")&&!L.length?" Use “+ Add lead” to add the first lead.":""}</p>`}</div></div>`};
-V.fin=()=>{const I=db.invoices,E=db.expenses,paid=sum(I.filter(i=>i.status==="Paid")),out=sum(I.filter(i=>i.status==="Sent")),ex=sum(E);
+V.fin=()=>{const I=db.invoices,E=db.expenses,paid=I.reduce((a,i)=>a+(+i.paid||0)/rate(i.currency),0),out=I.filter(i=>i.status==="Sent"||i.status==="Partial").reduce((a,i)=>a+((+i.amount||0)-(+i.paid||0))/rate(i.currency),0),ex=sum(E);
  const k=(l,v,c)=>`<div class="card ${c||""}"><div class="kl">${l}</div><div class="kv">${v}</div></div>`;
  const t=(ent,a,h,r)=>`<div class="card wrap"><div class="row"><h3 style="margin:0">${h}</h3>${can(ent)?`<button class="ghost" data-new="${ent}">+ Add</button>`:""}</div><table>${a.length?a.slice().sort((x,y)=>(y.issued||y.date||"")<(x.issued||x.date||"")?-1:1).map(r).join(""):'<tr><td class="mut">Nothing recorded yet.</td></tr>'}</table></div>`;
  return `<div class="grid k">${k("Revenue (paid)",money(paid),"yl")}${k("Outstanding",money(out),out?"hl":"")}${k("Expenses",money(ex))}${k("Net",money(paid-ex))}</div>
- <div class="grid two">${t("invoices",I,"Invoices",i=>`<tr data-ent="invoices" data-id="${i.id}"><td><b>${esc(i.client)}</b><div class="mut">${esc(i.desc)}</div></td><td>${money(i.amount)}</td><td class="${i.status==="Sent"&&i.due&&i.due<today()?"od":""}">${i.due||""}</td><td><span class="tag ${i.status}">${i.status}</span></td></tr>`)}
+ <div class="grid two">${t("invoices",I,"Invoices",i=>`<tr data-ent="invoices" data-id="${i.id}"><td><b>${esc(i.client)}</b><div class="mut">${esc(i.no)}${i.project?" · "+esc(i.project):""}</div></td><td>${fm2(i.amount,i.currency)}<div class="mut">Balance ${fm2((+i.amount||0)-(+i.paid||0),i.currency)}</div></td><td class="${(i.status==="Sent"||i.status==="Partial")&&i.due&&i.due<today()?"od":""}">${i.due||""}</td><td><span class="tag ${i.status}">${i.status}</span></td><td><button class="ghost" data-pr="${i.id}">Print</button></td></tr>`)}
  ${t("expenses",E,"Expenses",e=>`<tr data-ent="expenses" data-id="${e.id}"><td><b>${esc(e.desc)}</b><div class="mut">${esc(e.cat)}</div></td><td>${money(e.amount)}</td><td>${e.date||""}</td></tr>`)}</div>`};
 function render(){if(!ROLE||ST==="pw")return;const R=ROLES[ROLE];if(!R.v.includes(view==="project"?"projects":view))view="dash";
  $("#nav").innerHTML=NAV.filter(n=>R.v.includes(n[0])).map(n=>`<button data-v="${n[0]}" class="${n[0]===(view==="project"?"projects":view)?"on":""}">${n[1]}</button>`).join("");
@@ -183,19 +209,21 @@ function edit(ent,id,patch){const E=ENT[ent],cur=id?db[ent].find(x=>x.id===id):n
  const inp=f=>{const v=o[f.k]==null?"":o[f.k],i="f_"+f.k;
   if(f.t==="select")return `<select id="${i}">${f.nb?"":'<option value="">—</option>'}${f.o.map(x=>`<option ${x===v?"selected":""}>${x}</option>`).join("")}</select>`;
   if(f.t==="area")return `<textarea id="${i}" rows="2">${esc(v)}</textarea>`;
-  return `<input id="${i}" type="${f.t}" value="${esc(v)}" ${f.t==="number"?'min="0" step="any"':""} ${f.ph?`placeholder="${f.ph}"`:""} ${f.list?'list="dl"':""}>`};
+  return `<input id="${i}" type="${f.t}" value="${esc(v)}" ${f.t==="number"?'min="0" step="any"':""} ${f.ph?`placeholder="${f.ph}"`:""} ${f.list?`list="${f.list==="p"?"dlp":"dl"}"`:""}>`};
  d.innerHTML=`<h2>${id?"Edit":"New"} ${E.title}</h2><div class="g">${E.f.map(f=>`<div class="${f.f?"f":""}"><label for="f_${f.k}">${f.l}${f.req?" *":""}</label>${inp(f)}</div>`).join("")}</div>
- <datalist id="dl">${db.leads.map(l=>`<option value="${esc(l.company)}">`).join("")}</datalist><p class="err" id="err"></p>
+ <datalist id="dl">${[...new Set([...db.leads.map(l=>l.company),...db.projects.map(p=>p.client)].filter(Boolean))].map(c=>`<option value="${esc(c)}">`).join("")}</datalist><datalist id="dlp">${db.projects.map(p=>`<option value="${esc(p.name)}">`).join("")}</datalist><p class="err" id="err"></p>
  <div class="acts"><button class="pri" id="sv">Save</button><button class="ghost" id="cx">Cancel</button><span class="sp"></span>${id?'<button class="ghost" id="dl_">Delete</button>':""}</div>`;
  const err=m=>{$("#err").textContent=m};
  $("#cx").onclick=()=>d.close();
  $("#sv").onclick=()=>{const v={};E.f.forEach(f=>{let x=$("#f_"+f.k).value.trim();if(f.t==="number")x=x===""?"":+x;v[f.k]=x});
   if(v.stage&&v.stage!=="Lost")v.lost="";
+  if(ent==="invoices"){const a=+v.amount||0,p=+v.paid||0;if(a>0&&p>=a)v.status="Paid";else if(p>0)v.status="Partial";else if(v.status==="Paid"||v.status==="Partial")v.status="Sent"}
   const m=E.val(v);if(m)return err(m);
   const it=Object.assign({},cur||(ent==="leads"?{project_id:PID}:{}),v);
   put(ent,it).then(r=>{d.close();if(ent==="projects"&&!it.id){PID=r;view="project";ptab="overview";loadAll()}}).catch(e=>err("Could not save: "+((e&&e.message)||"not permitted")))};
  if(id){let armed=0;$("#dl_").onclick=e=>{if(!armed){armed=1;e.target.textContent=ent==="projects"?"Confirm: also deletes its leads":"Click again to confirm";return}
   del(ent,id).then(()=>{d.close();if(ent==="projects"){view="projects";PID=null}}).catch(fail)}}
+ if(ent==="invoices"&&!id){$("#f_project").onchange=e=>{const p=db.projects.find(x=>x.name===e.target.value);if(p){if(!$("#f_client").value)$("#f_client").value=p.client||"";$("#f_currency").value=p.currency||"USD"}}}
  if(ent==="leads"&&!id){const cm={USA:"USD",UK:"GBP",UAE:"AED",Australia:"AUD",India:"INR"};$("#f_country").onchange=e=>{if(cm[e.target.value])$("#f_currency").value=cm[e.target.value]}}
  if(!can(ent)){d.querySelectorAll("input,select,textarea").forEach(x=>x.disabled=true);$("#sv").remove();if(id)$("#dl_").remove()}d.showModal();return err}
 function toast(m){let t=$("#ts");if(!t){t=document.createElement("div");t.id="ts";document.body.appendChild(t)}t.textContent=m;t.style.display="block";clearTimeout(toast.h);toast.h=setTimeout(()=>t.style.display="none",3500)}
@@ -214,6 +242,7 @@ document.addEventListener("click",e=>{const t=e.target;let n;
  if(n=t.closest("[data-v]")){view=n.dataset.v;render()}
  else if(n=t.closest("[data-proj]")){PID=n.dataset.proj;view="project";ptab="overview";q="";sf="";render()}
  else if(n=t.closest("[data-pt]")){ptab=n.dataset.pt;q="";sf="";render()}
+ else if(n=t.closest("[data-pr]"))printInv(n.dataset.pr);
  else if(n=t.closest("[data-new]"))edit(n.dataset.new);
  else if(t.closest("[data-bk]"))backup();
  else if(n=t.closest("[data-lo],[data-cp]"))adm(n);
@@ -224,7 +253,7 @@ document.addEventListener("change",e=>{const t=e.target;
  else if(t.dataset.mrole){const id=t.dataset.mrole,body=t.dataset.f==="active"?{active:t.value==="1"}:{role:t.value};if(id===ME.id){toast("You can’t change your own role or status.");render();return}sb.from("profiles").update(body).eq("id",id).then(r=>{if(r.error)fail(r.error);loadAll()})}
  else if(t.dataset.move){const l=db.leads.find(x=>x.id===t.dataset.move),m=ENT.leads.val(Object.assign({},l,{stage:t.value,lost:t.value==="Lost"?l.lost:""}));
   if(m){const er=edit("leads",l.id,{stage:t.value});er(m)}else{put("leads",Object.assign({},l,{stage:t.value,lost:t.value==="Lost"?l.lost:""})).catch(fail)}}});
-const LOGO='<div class="logo" style="justify-content:center;margin-bottom:16px"><s></s><span>Brainways<i>Tech</i></span></div>';
+const LOGO='<div class="logo" style="justify-content:center;margin-bottom:16px"><img src="logo.png" alt="" style="height:44px;width:auto;border-radius:8px" onerror="this.outerHTML=\'<s></s>\'"><span>Brainways<i>Tech</i></span></div>';
 function gate(h){$("#nav").innerHTML="";$("#me").textContent="";$("#hb").innerHTML="";$("#m").innerHTML=`<div class="gate">${LOGO}${h}</div>`}
 function loginScreen(){ST="login";gate(`<h2>Sign in</h2><div class="card"><label for="lu">Email</label><input id="lu" type="email" autocomplete="username"><label for="lp" style="margin-top:8px">Password</label><input id="lp" type="password" autocomplete="current-password"><p class="err" id="err"></p><button class="pri" id="li" style="width:100%">Sign in</button><p class="mut" style="margin:10px 0 0;font-size:12px">Accounts are created by your BrainwaysTech admin. <a href="#" id="fp">Forgot password?</a></p></div>`);
  const go=async()=>{const em=$("#lu").value.trim(),pw=$("#lp").value,e=$("#err");e.textContent="";if(!em||!pw){e.textContent="Enter your email and password.";return}
@@ -244,6 +273,27 @@ async function enter(session){const {data:p,error}=await sb.from("profiles").sel
  ME={id:p.id,name:p.full_name||session.user.email};ROLE=p.role;ST="ok";await loadAll();clearInterval(POLL);POLL=setInterval(loadAll,30000)}
 async function signOut(){clearInterval(POLL);await sb.auth.signOut();ROLE=null;ME=null;db.leads=[];db.projects=[];db.invoices=[];db.expenses=[];db.profiles=[];PID=null;view="dash";loginScreen()}
 function adm(n){if("lo" in n.dataset)signOut();else pwScreen(false)}
+function printInv(id){const i=db.invoices.find(x=>x.id===id);if(!i)return;
+ const C=COMPANY,cur=i.currency||"USD",amt=+i.amount||0,pd=+i.paid||0,bal=Math.max(0,amt-pd),br=x=>esc(x).replace(/\n/g,"<br>"),
+ st=amt>0&&pd>=amt?"PAID":pd>0?"PARTIALLY PAID":"PAYMENT DUE";
+ let ov=$("#invov");if(!ov){ov=document.createElement("div");ov.id="invov";document.body.appendChild(ov)}
+ const warn=/yourdomain/.test(C.email)?'Edit the COMPANY details at the top of index.html before sending. ':"";
+ ov.innerHTML=`<div class="tbr"><button class="ghost" id="ic">Close</button><span class="sp"></span><span class="w">${warn}Tip: Print, choose “Save as PDF”, paper A4, turn on Background graphics.</span><button class="ghost" id="im">Email client</button><button class="pri" id="ip">Print / Save as PDF</button></div>
+ <div id="invpg"><div class="ib"></div>
+ <div class="ih"><div><img src="logo.png" alt="" style="height:16mm;width:auto" onerror="this.style.display='none'"><div class="wm">Brainways<i>Tech</i></div></div>
+ <div style="text-align:right"><h1 class="it">INVOICE</h1><div style="margin-top:3mm">No. <b>${esc(i.no||"—")}</b></div><div>Issue date: ${dt(i.issued)}</div><div>Due date: <b>${dt(i.due)}</b></div></div></div>
+ <div class="g2"><div><div class="il">From</div><b>${esc(C.name)}</b><br>${C.addr.map(esc).join("<br>")}<br>${esc(C.email)}<br>${esc(C.phone)}<br>${esc(C.web)}${C.tax?"<br>"+esc(C.tax):""}</div>
+ <div><div class="il">Bill to</div><div>Client Name: <b>${esc(i.client)}</b></div>${i.email?`<div>${esc(i.email)}</div>`:""}<div style="margin-top:2mm">Project Name: <b>${esc(i.project||"—")}</b></div></div></div>
+ <table><tr><th>Description</th><th style="width:22mm;text-align:right">Units</th><th style="width:40mm;text-align:right">Total amount</th></tr>
+ <tr><td>${br(i.desc||"—")}</td><td style="text-align:right">${i.units===""||i.units==null?"—":esc(i.units)}</td><td style="text-align:right">${fm2(amt,cur)}</td></tr></table>
+ <div class="tt"><div><span>Total amount</span><b>${fm2(amt,cur)}</b></div><div><span>Paid amount</span><b>${fm2(pd,cur)}</b></div><div class="bd"><span>Balance Due</span><span>${fm2(bal,cur)} ${cur}</span></div></div>
+ <div style="text-align:right"><span class="st">${st}</span></div>
+ <div class="ft">${i.notes?`<div class="il">Notes</div><div>${br(i.notes)}</div><br>`:""}${C.bank.length?`<div class="il">Payment details</div><div>${C.bank.map(esc).join("<br>")}</div><br>`:""}
+ <div>Questions about this invoice? Contact us at <b>${esc(C.email)}</b>${C.phone?" · "+esc(C.phone):""}. Thank you for your business.</div><div style="color:#666;margin-top:2mm">${esc(C.web)}${C.instagram?" · Instagram "+esc(C.instagram):""}</div></div>
+ <div class="fb"></div></div>`;
+ $("#ic").onclick=()=>ov.remove();$("#ip").onclick=()=>window.print();
+ $("#im").onclick=()=>{const sub=`Invoice ${i.no||""} from ${C.name}${i.project?" – "+i.project:""}`,body=`Dear ${i.client},\n\nPlease find attached invoice ${i.no||""}${i.project?" for "+i.project:""}.\n\nTotal amount: ${fm2(amt,cur)}\nPaid amount: ${fm2(pd,cur)}\nBalance due: ${fm2(bal,cur)}\nDue date: ${dt(i.due)}\n\nIf you have any questions, reply to this email or contact ${C.email}.\n\nKind regards,\n${C.name}`;
+  location.href="mailto:"+(i.email||"")+"?subject="+encodeURIComponent(sub)+"&body="+encodeURIComponent(body)}}
 async function boot(){gate('<p class="mut">Loading…</p>');
  if(!window.supabase||SUPABASE_URL.indexOf("PASTE")===0)return gate('<h2>Not configured</h2><p class="mut">Open index.html and paste your Supabase Project URL and anon key at the top of the script.</p>');
  sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
