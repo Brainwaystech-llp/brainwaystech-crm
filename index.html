@@ -3,6 +3,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>BrainwaysTech CRM</title>
 <link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Syne:wght@800&display=swap" rel="stylesheet">
 <style>
 :root{--r:#F5002F;--y:#FFC321;--bg:#fff;--fg:#000;--mut:#6b6b6b;--ln:#e6e6e6;--card:#fafafa;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
@@ -51,24 +53,28 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--y);border-color:
 .tag.Active{background:var(--y);color:#000;border-color:var(--y)}.pc:hover{border-color:var(--r)}.tag.Partial{border-color:var(--y)}
 #invov{position:fixed;inset:0;z-index:50;background:#2b2b2b;overflow:auto;padding:12px;padding-top:calc(12px + env(safe-area-inset-top,0px))}
 #invov .tbr{display:flex;gap:8px;align-items:center;max-width:210mm;margin:0 auto 12px;flex-wrap:wrap}#invov .tbr .sp{flex:1}#invov .w{color:#FFC321;font-size:12px}#invov .ghost{color:#fff;border-color:#777}
-#invpg{width:210mm;min-height:297mm;margin:0 auto;background:#fff;color:#000;box-sizing:border-box;padding:0 14mm 14mm;display:flex;flex-direction:column;font-size:10.5pt;line-height:1.45;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-#invpg .ib{height:7mm;background:#F5002F;margin:0 -14mm 9mm;border-bottom:1.6mm solid #FFC321;box-sizing:content-box}
-#invpg .ih{display:flex;justify-content:space-between;align-items:flex-start;gap:10mm}
-#invpg .wm{font-weight:800;font-size:17pt;letter-spacing:-.02em;margin-top:2mm}#invpg .wm i{color:#F5002F;font-style:normal}
-#invpg .it{font-size:30pt;font-weight:800;letter-spacing:.05em;margin:0;color:#F5002F;line-height:1}
-#invpg .g2{display:grid;grid-template-columns:1fr 1fr;gap:8mm;margin:9mm 0 4mm}
-#invpg .il{font-size:8pt;text-transform:uppercase;letter-spacing:.12em;color:#F5002F;font-weight:700;margin-bottom:1.5mm}
-#invpg table{width:100%;border-collapse:collapse;margin-top:4mm}
-#invpg th{background:#000;color:#FFC321;text-align:left;padding:3mm;font-size:9pt;text-transform:uppercase;letter-spacing:.06em;border:0}
-#invpg td{padding:3.5mm 3mm;border-bottom:.3mm solid #ddd;vertical-align:top;white-space:normal}
-#invpg .tt{margin:8mm 0 0 auto;width:80mm;page-break-inside:avoid}
+#invpg{position:relative;width:210mm;min-height:297mm;box-sizing:border-box;padding:54mm 15mm 26mm;margin:0 auto;background:#fff;color:#000;font-family:Poppins,"Segoe UI",system-ui,sans-serif;font-size:10pt;line-height:1.45;-webkit-print-color-adjust:exact;print-color-adjust:exact;overflow:hidden}
+#invpg .bt,#invpg .bb{position:absolute;left:0;width:210mm}#invpg .bt{top:0;height:10.9mm}#invpg .bb{bottom:0;height:12.4mm}
+#invpg .lg{position:absolute;left:20mm;top:12mm;height:25mm;width:auto}
+#invpg .co{position:absolute;left:135mm;top:15mm;width:66mm;font-size:8.6pt;line-height:1.5;text-transform:uppercase}
+#invpg .co h2{font:800 13pt Syne,Poppins,sans-serif;margin:0;line-height:1.1;white-space:nowrap}
+#invpg .co .tg{font:800 6.3pt Syne,Poppins,sans-serif;letter-spacing:.08em;margin:1mm 0 3.5mm}#invpg .co b{font-weight:600}
+#invpg .tr{display:flex;justify-content:space-between;align-items:flex-end;gap:8mm}
+#invpg .it{font:800 28pt Syne,Poppins,sans-serif;margin:0;line-height:1}
+#invpg .sl{margin-top:3mm;height:6mm}#invpg .sl i{display:inline-block;width:3.2mm;height:6mm;background:#ED202F;transform:skewX(-18deg);margin-right:1.6mm}
+#invpg .mt{width:66mm}#invpg .mt div{display:flex;justify-content:space-between;gap:6mm;padding:.8mm 0;border-bottom:.3mm solid #e2e2e2}#invpg .mt span{color:#555}
+#invpg .g2{display:grid;grid-template-columns:1fr 1fr;gap:8mm;margin:10mm 0 4mm}
+#invpg .il{font-size:7.5pt;text-transform:uppercase;letter-spacing:.14em;color:#ED202F;font-weight:700;margin-bottom:1.2mm}#invpg .bg{font-size:12pt;font-weight:700}
+#invpg table{width:100%;border-collapse:collapse;margin-top:5mm}
+#invpg th{background:#F9C41A;color:#000;text-align:left;padding:3mm;font-size:8.5pt;text-transform:uppercase;letter-spacing:.08em;font-weight:700;border:0}
+#invpg td{padding:4mm 3mm;border-bottom:.3mm solid #ddd;vertical-align:top;white-space:normal}
+#invpg .tt{margin:8mm 0 0 auto;width:82mm;page-break-inside:avoid}
 #invpg .tt div{display:flex;justify-content:space-between;padding:2mm 0;border-bottom:.3mm solid #ddd}
-#invpg .tt .bd{background:#FFC321;font-weight:800;font-size:13pt;padding:3mm;border:0;margin-top:2mm}
-#invpg .st{display:inline-block;border:.6mm solid #F5002F;color:#F5002F;font-weight:800;padding:1.5mm 4mm;letter-spacing:.1em;font-size:10pt;margin-top:6mm}
-#invpg .ft{margin-top:auto;padding-top:10mm;font-size:9.5pt}
-#invpg .fb{height:4mm;background:#000;margin:6mm -14mm -14mm;border-top:1.6mm solid #F5002F}
+#invpg .tt .bd{background:#000;color:#F9C41A;font-weight:700;font-size:12pt;padding:3.2mm 3mm;border:0;margin-top:2mm}
+#invpg .st{display:inline-block;border:.6mm solid #ED202F;color:#ED202F;font-weight:700;padding:1.4mm 4mm;letter-spacing:.1em;font-size:9.5pt;margin-top:6mm}
+#invpg .nt{margin-top:9mm;font-size:9.2pt}#invpg .qs{margin-top:9mm;font-size:9pt;color:#222}
 @media(max-width:820px){#invpg{zoom:.45}#invov .tbr{max-width:100%}}
-@media print{@page{size:A4;margin:0}html,body{background:#fff!important}body>*:not(#invov){display:none!important}#invov{position:static;background:#fff;padding:0;overflow:visible}#invov .tbr{display:none}#invpg{margin:0;zoom:1}}
+@media print{@page{size:A4;margin:0}html,body{background:#fff!important}body>*:not(#invov){display:none!important}#invov{position:static;background:#fff;padding:0;overflow:visible}#invov .tbr{display:none}#invpg{margin:0;zoom:1;height:297mm;min-height:0}}
 .sub{display:flex;gap:2px;margin:12px 0 16px;border-bottom:1px solid var(--ln);overflow-x:auto}.sub button{background:none;border:0;padding:8px 12px;color:var(--mut);border-bottom:2px solid transparent;white-space:nowrap}.sub button.on{color:var(--fg);border-color:var(--r);font-weight:600}
 #ts{display:none;position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:#000;color:#fff;border:1px solid var(--y);padding:8px 14px;border-radius:6px;z-index:99}
 </style></head><body>
@@ -87,8 +93,8 @@ const COUNTRIES=["USA","UK","UAE","Australia","India"];
 /* Currencies: [symbol, units per 1 USD]. Approximate rates, used only to total values in USD. Update the numbers when you want. */
 const CUR={USD:["$",1],GBP:["£",0.745],EUR:["€",0.86],AED:["AED ",3.6725],AUD:["A$",1.42],INR:["₹",94]};
 /* ===== EDIT YOUR COMPANY DETAILS (printed on every invoice) ===== */
-const COMPANY={name:"Brainwaystech LLp",addr:["216-B, salem main Road, Newpet","Krishnagiri, Tamilnadu, 635001","India"],email:"info@brainwaystechllp.com",phone:"+91 76679 24881",web:"www.brainwaystechllp.com",tax:"",instagram:"@brainwaystech.ai",
- bank:[] /* e.g. ["Bank: ...","Account name: BRAINWAYSTECH","Account no.: ...","IFSC/SWIFT: ..."] */};
+const COMPANY={name:"BRAINWAYSTECH LLP",tag:"We Build, Automate, Grow",addr:["216 B, Salem Road, Krishnagiri,","Tamilnadu, India."],email:"info@brainwaystechllp.com",phone:"+91 76679 24881",web:"www.brainwaystechllp.com",gstin:"33ABCFB6888N2ZU",instagram:"@brainwaystech.ai",
+ bank:[] /* e.g. ["Bank: ...","Account name: ...","Account no.: ...","IFSC/SWIFT: ..."] */};
 const LOSTR=["Budget","Timing","No response","Competitor"];
 const LEAD=[
 {k:"company",l:"Company",t:"text",req:1},{k:"country",l:"Country",t:"select",o:COUNTRIES},
@@ -277,21 +283,23 @@ function printInv(id){const i=db.invoices.find(x=>x.id===id);if(!i)return;
  const C=COMPANY,cur=i.currency||"USD",amt=+i.amount||0,pd=+i.paid||0,bal=Math.max(0,amt-pd),br=x=>esc(x).replace(/\n/g,"<br>"),
  st=amt>0&&pd>=amt?"PAID":pd>0?"PARTIALLY PAID":"PAYMENT DUE";
  let ov=$("#invov");if(!ov){ov=document.createElement("div");ov.id="invov";document.body.appendChild(ov)}
- const warn=/yourdomain/.test(C.email)?'Edit the COMPANY details at the top of index.html before sending. ':"";
+ const SV=(c,h,p)=>`<svg class="${c}" viewBox="0 0 210 ${h}" preserveAspectRatio="none">${p}</svg>`,Y="#F9C41A",R="#ED202F";
+ const top=SV("bt",10.9,`<polygon fill="${Y}" points="127.1,0 210,0 210,10.9 130.73,10.9"/><polygon fill="${R}" points="111.3,0 117.2,0 120.83,10.9 114.93,10.9"/><polygon fill="${R}" points="119.3,0 125.2,0 128.83,10.9 122.93,10.9"/>`);
+ const bot=SV("bb",12.4,`<polygon fill="${Y}" points="0,0 105.4,0 109.46,12.4 0,12.4"/><polygon fill="${R}" points="107.3,0 113.3,0 117.35,12.4 111.35,12.4"/><polygon fill="${R}" points="115.3,0 121.3,0 125.35,12.4 119.35,12.4"/>`);
+ const warn=/yourdomain/.test(C.email)?"Edit the COMPANY details at the top of index.html before sending. ":"";
  ov.innerHTML=`<div class="tbr"><button class="ghost" id="ic">Close</button><span class="sp"></span><span class="w">${warn}Tip: Print, choose “Save as PDF”, paper A4, turn on Background graphics.</span><button class="ghost" id="im">Email client</button><button class="pri" id="ip">Print / Save as PDF</button></div>
- <div id="invpg"><div class="ib"></div>
- <div class="ih"><div><img src="logo.png" alt="" style="height:16mm;width:auto" onerror="this.style.display='none'"><div class="wm">Brainways<i>Tech</i></div></div>
- <div style="text-align:right"><h1 class="it">INVOICE</h1><div style="margin-top:3mm">No. <b>${esc(i.no||"—")}</b></div><div>Issue date: ${dt(i.issued)}</div><div>Due date: <b>${dt(i.due)}</b></div></div></div>
- <div class="g2"><div><div class="il">From</div><b>${esc(C.name)}</b><br>${C.addr.map(esc).join("<br>")}<br>${esc(C.email)}<br>${esc(C.phone)}<br>${esc(C.web)}${C.tax?"<br>"+esc(C.tax):""}</div>
- <div><div class="il">Bill to</div><div>Client Name: <b>${esc(i.client)}</b></div>${i.email?`<div>${esc(i.email)}</div>`:""}<div style="margin-top:2mm">Project Name: <b>${esc(i.project||"—")}</b></div></div></div>
- <table><tr><th>Description</th><th style="width:22mm;text-align:right">Units</th><th style="width:40mm;text-align:right">Total amount</th></tr>
+ <div id="invpg">${top}<img class="lg" src="logo.png" alt="" onerror="this.style.display='none'">
+ <div class="co"><h2>${esc(C.name)}</h2><div class="tg">${esc(C.tag)}</div>${C.addr.map(esc).join("<br>")}<br>Email: ${esc(C.email)}${C.phone?"<br>Phone: "+esc(C.phone):""}${C.web?"<br>"+esc(C.web):""}${C.gstin?`<br><b>GSTIN : ${esc(C.gstin)}</b>`:""}</div>
+ <div class="tr"><div><h1 class="it">INVOICE</h1><div class="sl"><i></i><i></i></div></div>
+ <div class="mt"><div><span>Invoice no.</span><b>${esc(i.no||"—")}</b></div><div><span>Issue date</span><b>${dt(i.issued)}</b></div><div><span>Due date</span><b>${dt(i.due)}</b></div></div></div>
+ <div class="g2"><div><div class="il">Client Name</div><div class="bg">${esc(i.client)}</div>${i.email?`<div>${esc(i.email)}</div>`:""}</div><div><div class="il">Project Name</div><div class="bg">${esc(i.project||"—")}</div></div></div>
+ <table><tr><th>Description</th><th style="width:22mm;text-align:right">Units</th><th style="width:42mm;text-align:right">Total amount</th></tr>
  <tr><td>${br(i.desc||"—")}</td><td style="text-align:right">${i.units===""||i.units==null?"—":esc(i.units)}</td><td style="text-align:right">${fm2(amt,cur)}</td></tr></table>
  <div class="tt"><div><span>Total amount</span><b>${fm2(amt,cur)}</b></div><div><span>Paid amount</span><b>${fm2(pd,cur)}</b></div><div class="bd"><span>Balance Due</span><span>${fm2(bal,cur)} ${cur}</span></div></div>
  <div style="text-align:right"><span class="st">${st}</span></div>
- <div class="ft">${i.notes?`<div class="il">Notes</div><div>${br(i.notes)}</div><br>`:""}${C.bank.length?`<div class="il">Payment details</div><div>${C.bank.map(esc).join("<br>")}</div><br>`:""}
- <div>Questions about this invoice? Contact us at <b>${esc(C.email)}</b>${C.phone?" · "+esc(C.phone):""}. Thank you for your business.</div><div style="color:#666;margin-top:2mm">${esc(C.web)}${C.instagram?" · Instagram "+esc(C.instagram):""}</div></div>
- <div class="fb"></div></div>`;
- $("#ic").onclick=()=>ov.remove();$("#ip").onclick=()=>window.print();
+ ${i.notes?`<div class="nt"><div class="il">Notes</div>${br(i.notes)}</div>`:""}${C.bank.length?`<div class="nt"><div class="il">Payment details</div>${C.bank.map(esc).join("<br>")}</div>`:""}
+ <div class="qs">Questions about this invoice? Contact us at <b>${esc(C.email)}</b>${C.phone?" · "+esc(C.phone):""}. Thank you for your business.${C.instagram?" Follow us on Instagram "+esc(C.instagram)+".":""}</div>${bot}</div>`;
+ $("#ic").onclick=()=>ov.remove();$("#ip").onclick=()=>{(document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(()=>window.print())};
  $("#im").onclick=()=>{const sub=`Invoice ${i.no||""} from ${C.name}${i.project?" – "+i.project:""}`,body=`Dear ${i.client},\n\nPlease find attached invoice ${i.no||""}${i.project?" for "+i.project:""}.\n\nTotal amount: ${fm2(amt,cur)}\nPaid amount: ${fm2(pd,cur)}\nBalance due: ${fm2(bal,cur)}\nDue date: ${dt(i.due)}\n\nIf you have any questions, reply to this email or contact ${C.email}.\n\nKind regards,\n${C.name}`;
   location.href="mailto:"+(i.email||"")+"?subject="+encodeURIComponent(sub)+"&body="+encodeURIComponent(body)}}
 async function boot(){gate('<p class="mut">Loading…</p>');
